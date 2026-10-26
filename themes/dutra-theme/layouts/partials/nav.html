@@ -1,0 +1,8 @@
+<div style="margin-bottom: 10px; padding: 10px; text-align: center" class="nav-bar">
+  {{ range $index, $element := .Site.Menus.main }}
+    {{ if $index }} | {{ end }}<a href="{{ .URL | relURL }}">{{ .Name }}</a>
+  {{ end }}
+  {{ if not .Site.Menus.main }}
+    <a href="{{ "/" | relURL }}">Home</a> | <a href="{{ "/articles/" | relURL }}">Articles</a> | <a href="{{ "/projects/" | relURL }}">Projects</a> | <a href="{{ "/index.xml" | relURL }}">RSS</a>
+  {{ end }}
+</div>

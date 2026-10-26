@@ -1,0 +1,14 @@
+{{ define "title" }}All of my projects:{{ end }}
+
+{{ define "main" }}
+{{ if .Site.Data.projects }}
+  {{ range .Site.Data.projects.projects }}
+  <div style="margin-top: 10px" class="article">
+    <a href="{{ .url }}">{{ .name }}</a> - {{ .description }}
+  </div>
+  {{ end }}
+{{ end }}
+<div class="content">
+  {{ .Content }}
+</div>
+{{ end }}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    {{ $style := resources.Get "css/styles.css" }}
+    {{ if $style }}
+    <link href="{{ $style.Permalink }}" rel="stylesheet">
+    {{ else }}
+    <link href="{{ "css/styles.css" | relURL }}" rel="stylesheet">
+    {{ end }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <div style="margin-bottom: 10px; padding: 10px; text-align: center">
+      <h1>{{ .Site.Params.author }}</h1>
+      {{ if .Site.Params.phone }}<tt>{{ .Site.Params.phone }}</tt> •{{ end }}
+      {{ if .Site.Params.email }}<a href="mailto: {{ .Site.Params.email }}">{{ .Site.Params.email }}</a> •{{ end }}
+      {{ if .Site.Params.github }}<a href="{{ .Site.Params.github }}">GitHub</a>{{ end }}
+    </div>
+    <div style="display: grid">
+      {{ if .Site.Params.education }}
+      <div>
+        <h2>Education:</h2>
+        <hr>
+        {{ .Site.Params.education | markdownify }}
+      </div>
+      {{ end }}
+      {{ if .Site.Data.employment }}
+      <div>
+        <h2>Work Experience:</h2>
+        <hr>
+        {{ range .Site.Data.employment.employment }}
+        <div style="margin-top: 10px" class="article">
+          {{ .title }} — {{ .company }}
+          <div style="float: right">
+            {{ .timeline }}
+          </div>
+        </div>
+        <div style="line-height: 1.2">
+        <ul>
+          {{ range .features }}
+          <li>{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+      {{ if .Site.Data.projects }}
+      <div>
+        <h2>Personal Projects:</h2>
+        <hr>
+        {{ range .Site.Data.projects.projects }}
+        <div style="margin-top: 10px" class="article">
+          {{ .name }} - <a href="{{ .url }}">{{ .url }}</a>
+        </div>
+        <ul>
+          <li>{{ .description }}</li>
+          {{ range .features }}
+          <li>{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </body>
+</html>

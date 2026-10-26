@@ -1,0 +1,14 @@
+{{ define "title" }}All {{ .Title | lower }}:{{ end }}
+
+{{ define "main" }}
+{{ range .Pages }}
+{{ if not .Params.preprint }}
+<div style="margin-top: 10px" class="article">
+  <a href="{{ .RelPermalink }}">{{ .Title }}</a> - published <span class="article-date">{{ .Date.Format "January 2, 2006" }}</span>
+</div>
+{{ end }}
+{{ end }}
+<div class="content">
+  {{ .Content }}
+</div>
+{{ end }}

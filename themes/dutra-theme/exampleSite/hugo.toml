@@ -1,0 +1,10 @@
+baseURL = "https://example.com/"
+languageCode = "en-us"
+title = "Gabriel M. Dutra"
+theme = "dutra-theme"
+
+[params]
+  author = "Gabriel M. Dutra"
+  email = "gabriel@dmdutra.io"
+  github = "https://github.com/dmdutra"
+  avatar = "https://avatars.githubusercontent.com/u/280874259"

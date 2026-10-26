@@ -1,0 +1,11 @@
+[[employment]]
+  title = "Senior SRE Engineer"
+  company = "malga"
+  timeline = "May. 2021 - Present"
+  features = [ "Infrastructure Engineer" ]
+
+[[employment]]
+  title = "Infrastructure Engineer"
+  company = "CRMall."
+  timeline = "Fev. 2021 - May. 2021"
+  features = ["Linux", "FreeBSD", "Python"]

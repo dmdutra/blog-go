@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    {{ partial "nav.html" . }}
+    <h1 style="text-align: center">{{ block "title" . }}{{ .Title }}{{ end }}</h1>
+    {{ block "main" . }}
+    {{ end }}
+  </body>
+</html>

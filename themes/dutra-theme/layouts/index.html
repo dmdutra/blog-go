@@ -1,0 +1,33 @@
+{{ define "title" }}About me{{ end }}
+
+{{ define "main" }}
+<div style="display: grid">
+  <div>
+    {{ if .Site.Params.avatar }}
+    <img src="{{ .Site.Params.avatar }}" style="float: left; max-width: min(200px, 100vw);  max-height: min(200px, 100vh);  padding: 16px;  border-radius: 50%; margin: 10px">
+    {{ end }}
+    {{ .Content }}
+  </div>
+  <div>
+    <h3>Most recent articles:</h3>
+    {{ $articles := where .Site.RegularPages "Section" "articles" }}
+    {{ range first 5 $articles }}
+    <div style="margin-top: 10px" class="article">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a> - published <span class="article-date">{{ .Date.Format "January 2, 2006" }}</span>
+    </div>
+    {{ end }}
+  </div>
+  {{ if .Site.Data.projects }}
+  <div>
+    <h3>Projects I'm currently working on:</h3>
+    {{ range .Site.Data.projects.projects }}
+    {{ if .active }}
+    <div style="margin-top: 10px" class="article">
+      <a href="{{ .url }}">{{ .name }}</a> - {{ .description }}
+    </div>
+    {{ end }}
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+{{ end }}
