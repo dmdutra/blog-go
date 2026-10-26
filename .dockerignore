@@ -1,0 +1,11 @@
+.git
+.github
+.agents
+.codex
+.aws
+.env
+.env.*
+public
+resources
+.hugo_build.lock
+README.md

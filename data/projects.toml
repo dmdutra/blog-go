@@ -1,0 +1,20 @@
+[[projects]]
+  name = "sn"
+  description = "A TUI (Terminal User Interface) notes app, built with Ratatui."
+  features = [ "rust" ]
+  url = "https://github.com/dmdutra/sn"
+  active = true
+
+[[projects]]
+  name = "bsdmail"
+  description = "A simple way to deploy a personal mail server on FreeBSD."
+  features = [ "sh", "postfix", "dovecot", "FreeBSD" ]
+  url = "https://github.com/dmdutra/bsdmail"
+  active = true
+
+[[projects]]
+  name = "voidscout"
+  description = "Track versions from the Void Linux srcpkgs tree and upstream updates."
+  features = [ "bash", "python" ]
+  url = "https://github.com/dmdutra/voidscout"
+  active = true

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Installing k3s with cilium | Gabriel M. Dutra</title>
+
+
+<link href="/css/styles.css" rel="stylesheet">
+
+
+  </head>
+  <body>
+    <div style="margin-bottom: 10px; padding: 10px; text-align: center" class="nav-bar">
+  
+  
+    <a href="/">Home</a> | <a href="/articles/">Articles</a> | <a href="/projects/">Projects</a> | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    <h1 style="text-align: center">Installing k3s with cilium</h1>
+    
+
+by Gabriel M. Dutra
+
+
+<div class="content">
+  <h2 id="installing-k3s">Installing k3s</h2>
+<p>The k3s use flannel as CNI. To use cilium we will init k3s without flannel.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -sfL https://get.k3s.io | sh -s - <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --flannel-backend<span style="color:#f92672">=</span>none <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --disable-kube-proxy <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --disable-network-policy <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --disable<span style="color:#f92672">=</span>servicelb <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --disable<span style="color:#f92672">=</span>traefik
+</span></span></code></pre></div><p>Copy config to ~/.kube/config</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+</span></span></code></pre></div><h2 id="installing-cilium-cli">Installing cilium cli</h2>
+<p>I will install cilium using the CLI, but, it&rsquo;s possible using Helm.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -Lo cilium.tar.gz https://github.com/cilium/cilium-cli/releases/download/v0.20.1/cilium-linux-amd64.tar.gz
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>tar xzvf cilium.tar.gz
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mv cilium /usr/local/bin/
+</span></span></code></pre></div><h2 id="installing-cilium-on-k3s">Installing cilium on k3s</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cilium install <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --set ipam.operator.clusterPoolIPv4PodCIDRList<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10.42.0.0/16&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --set kubeProxyReplacement<span style="color:#f92672">=</span>true <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --version 1.20.2 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --set k8sServiceHost<span style="color:#f92672">=</span>127.0.0.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --set k8sServicePort<span style="color:#f92672">=</span><span style="color:#ae81ff">6443</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --version 1.20.2
+</span></span></code></pre></div><h2 id="check">Check</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cilium status
+</span></span></code></pre></div><pre tabindex="0"><code></code></pre>
+</div>
+
+  </body>
+</html>
