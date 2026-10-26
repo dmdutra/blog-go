@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog-dutra
+  labels:
+    app.kubernetes.io/name: blog-dutra
+spec:
+  # Usa a IngressClass padrão do cluster. Se necessário, defina ingressClassName.
+  tls:
+    - hosts:
+        - blog.dmdutra.io
+      secretName: blog-dutra-tls
+  rules:
+    - host: blog.dmdutra.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blog-dutra
+                port:
+                  name: http
